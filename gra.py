@@ -70,23 +70,25 @@ while running:
         if player_rect.colliderect(platform):
             # Sprawdzanie, czy postać stoi na platformie
             if player_velocity_y > 0:
-                player_y = platform.y - PLAYER_HEIGHT+1
+                player_y = platform.y - PLAYER_HEIGHT+2
                 player_velocity_y = 0
                 is_jumping = False
                 break
 
-    # Rysowanie tła i postaci
+    # Rysowanie tła
     window.fill(WHITE)
 
-    # Rysowanie obramowania dla gracza
-    player_rect = pygame.Rect(player_x, player_y, PLAYER_WIDTH, PLAYER_HEIGHT)
-    pygame.draw.rect(window, BLUE, player_rect)
-    pygame.draw.rect(window, BLACK, player_rect, 1)
+    # Rysowanie ramki dla gracza
+    pygame.draw.rect(window, BLACK, player_rect)
 
-    # Rysowanie platform
+    # Rysowanie ramki dla platform
     for platform in platforms:
-        pygame.draw.rect(window, BLUE, platform)
-        pygame.draw.rect(window, BLACK, platform, 1)
+        pygame.draw.rect(window, BLACK, platform)
+
+    # Rysowanie prostokątów gracza i platform
+    pygame.draw.rect(window, WHITE, (player_rect.x+1,player_rect.y+1,player_rect.width-2, player_rect.height-2))
+    for platform in platforms:
+        pygame.draw.rect(window, WHITE, (platform.x+1, platform.y+1, platform.width-2, platform.height-2))
 
     # Aktualizacja okna gry
     pygame.display.update()
