@@ -16,6 +16,8 @@ BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
+WHITE,BLACK = BLACK,WHITE
+
 # Stałe dotyczące postaci
 PLAYER_WIDTH = 50
 PLAYER_HEIGHT = 50
@@ -99,6 +101,8 @@ while running:
         square_x = player_x - SQUARE_SIZE
         square_y = player_y + PLAYER_HEIGHT // 2 - SQUARE_SIZE // 2
         square_direction = -0.25
+    else:
+        is_jumping = False
 
     # Rysowanie tła
     window.fill(WHITE)
