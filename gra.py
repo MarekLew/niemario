@@ -37,6 +37,10 @@ platforms = [
 player_velocity_y = 0
 is_jumping = False
 
+# Zegar dla kontroli liczby klatek na sekundę
+clock = pygame.time.Clock()
+FPS = 60  # Limit FPS
+
 # Główna pętla gry
 running = True
 while running:
@@ -80,6 +84,9 @@ while running:
 
     # Aktualizacja okna gry
     pygame.display.update()
+
+    # Kontrola liczby klatek na sekundę
+    clock.tick(FPS)
 
 # Zakończenie gry
 pygame.quit()
