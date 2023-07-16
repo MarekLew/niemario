@@ -60,8 +60,9 @@ while running:
     player_y += player_velocity_y
 
     # Sprawdzanie kolizji z platformami
+    player_rect = pygame.Rect(player_x, player_y, PLAYER_WIDTH, PLAYER_HEIGHT)
     for platform in platforms:
-        if player.colliderect(platform):
+        if player_rect.colliderect(platform):
             # Jeżeli postać dotyka platformy, zatrzymujemy skok
             if player_velocity_y > 0:
                 player_y = platform.y - PLAYER_HEIGHT
@@ -71,8 +72,7 @@ while running:
 
     # Rysowanie tła i postaci
     window.fill(WHITE)
-    player = pygame.Rect(player_x, player_y, PLAYER_WIDTH, PLAYER_HEIGHT)
-    pygame.draw.rect(window, BLUE, player)
+    pygame.draw.rect(window, BLUE, player_rect)
 
     # Rysowanie platform
     for platform in platforms:
