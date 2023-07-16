@@ -13,6 +13,7 @@ pygame.display.set_caption("Prosta platformówka")
 # Kolory
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
+BLACK = (0, 0, 0)
 
 # Stałe dotyczące postaci
 PLAYER_WIDTH = 50
@@ -67,20 +68,25 @@ while running:
     player_rect = pygame.Rect(player_x, player_y, PLAYER_WIDTH, PLAYER_HEIGHT)
     for platform in platforms:
         if player_rect.colliderect(platform):
-            # Jeżeli postać dotyka platformy, zatrzymujemy skok
+            # Sprawdzanie, czy postać stoi na platformie
             if player_velocity_y > 0:
                 player_y = platform.y - PLAYER_HEIGHT+1
                 player_velocity_y = 0
                 is_jumping = False
-            break
+                break
 
     # Rysowanie tła i postaci
     window.fill(WHITE)
+
+    # Rysowanie obramowania dla gracza
+    player_rect = pygame.Rect(player_x, player_y, PLAYER_WIDTH, PLAYER_HEIGHT)
     pygame.draw.rect(window, BLUE, player_rect)
+    pygame.draw.rect(window, BLACK, player_rect, 1)
 
     # Rysowanie platform
     for platform in platforms:
         pygame.draw.rect(window, BLUE, platform)
+        pygame.draw.rect(window, BLACK, platform, 1)
 
     # Aktualizacja okna gry
     pygame.display.update()
