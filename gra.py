@@ -16,8 +16,6 @@ BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
-WHITE,BLACK = BLACK,WHITE
-
 # Stałe dotyczące postaci
 PLAYER_WIDTH = 50
 PLAYER_HEIGHT = 50
@@ -25,7 +23,7 @@ PLAYER_VELOCITY = 5
 JUMP_VELOCITY = 10
 GRAVITY = 0.5
 
-# Stałe dotyczące kwadratu poruszającego się w prawo i skręcającego o 90 stopni
+# Stałe dotyczące kwadratu poruszającego się w prawo i obracającego się o 90 stopni
 SQUARE_SIZE = 10
 SQUARE_SPEED = 2
 
@@ -45,7 +43,7 @@ platforms = [
 player_velocity_y = 0
 is_jumping = False
 
-# Pozycja początkowa kwadratu poruszającego się w prawo i skręcającego o 90 stopni
+# Pozycja początkowa kwadratu poruszającego się w prawo i obracającego się o 90 stopni
 square_x = player_x + PLAYER_WIDTH + SQUARE_SIZE
 square_y = player_y + PLAYER_HEIGHT // 2 - SQUARE_SIZE // 2
 
@@ -89,20 +87,19 @@ while running:
                 is_jumping = False
                 break
 
-    # Aktualizacja pozycji kwadratu poruszającego się w prawo i skręcającego o 90 stopni
+    # Aktualizacja pozycji kwadratu poruszającego się w prawo i obracającego się o 90 stopni
     square_x += square_direction * SQUARE_SPEED
 
     # Sprawdzanie, czy kwadrat znajduje się wewnątrz gracza
-    if square_x >= player_x + PLAYER_WIDTH:
-        square_x = player_x + PLAYER_WIDTH
-        square_y = player_y + PLAYER_HEIGHT // 2 - SQUARE_SIZE // 2
-        square_direction = 0.25
-    elif square_x + SQUARE_SIZE <= player_x:
-        square_x = player_x - SQUARE_SIZE
-        square_y = player_y + PLAYER_HEIGHT // 2 - SQUARE_SIZE // 2
+    if square_x + SQUARE_SIZE > player_x + PLAYER_WIDTH:
+        square_x = player_x + PLAYER_WIDTH - SQUARE_SIZE
         square_direction = -0.25
+    elif square_x < player_x:
+        square_x = player_x
+        square_direction = 0.25
     else:
         is_jumping = False
+    square_y = player_y + PLAYER_HEIGHT // 2 - SQUARE_SIZE // 2
 
     # Rysowanie tła
     window.fill(WHITE)
@@ -119,8 +116,9 @@ while running:
     for platform in platforms:
         pygame.draw.rect(window, WHITE, (platform.x+1, platform.y+1, platform.width-2, platform.height-2))
 
-    # Rysowanie kwadratu poruszającego się w prawo i skręcającego o 90 stopni
+    # Rysowanie kwadratu poruszającego się w prawo i obracającego się o 90 stopni
     pygame.draw.rect(window, RED, (square_x, square_y, SQUARE_SIZE, SQUARE_SIZE))
+    
 
     # Aktualizacja okna gry
     pygame.display.update()
