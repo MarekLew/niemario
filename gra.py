@@ -69,7 +69,7 @@ while running:
         if player_rect.colliderect(platform):
             # Jeżeli postać dotyka platformy, zatrzymujemy skok
             if player_velocity_y > 0:
-                player_y = platform.y - PLAYER_HEIGHT
+                player_y = platform.y - PLAYER_HEIGHT+1
                 player_velocity_y = 0
                 is_jumping = False
             break
