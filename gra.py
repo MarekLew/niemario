@@ -119,6 +119,9 @@ while running:
     # Rysowanie kwadratu poruszającego się w prawo i obracającego się o 90 stopni
     pygame.draw.rect(window, RED, (square_x, square_y, SQUARE_SIZE, SQUARE_SIZE))
     
+    for x in range(5):
+        for y in range(5):
+            pygame.draw.rect(window, RED, (player_x+x*(SQUARE_SIZE-1)+2, player_y+y*(SQUARE_SIZE-1)+2, SQUARE_SIZE-1, SQUARE_SIZE-1))
 
     # Aktualizacja okna gry
     pygame.display.update()
